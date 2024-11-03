@@ -1,67 +1,74 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
+const PORT = 5000;
+
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
 // Kết nối MongoDB
-mongoose.connect('mongodb://localhost:27017/todolist', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Kết nối MongoDB thành công'))
-    .catch(err => console.error('Lỗi kết nối MongoDB:', err));
+mongoose.connect('mongodb://localhost:27017/todoapp', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('Đã kết nối MongoDB'))
+  .catch((error) => console.error('Lỗi kết nối MongoDB:', error));
 
-// Bắt đầu server
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server chạy tại http://localhost:${PORT}`));
-
-const Todo = require('./models/Todo');
-
-// API tạo mới một task
-app.post('/api/todos', async (req, res) => {
-    try {
-        const todo = new Todo({
-            title: req.body.title
-        });
-        const savedTodo = await todo.save();
-        res.json(savedTodo);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+// Định nghĩa model Todo
+const todoSchema = new mongoose.Schema({
+    title: String,
+    completed: { type: Boolean, default: false }
 });
 
-// API lấy tất cả task
+const Todo = mongoose.model('Todo', todoSchema);
+
+// API: Lấy danh sách todos
 app.get('/api/todos', async (req, res) => {
     try {
         const todos = await Todo.find();
         res.json(todos);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    } catch (error) {
+        res.status(500).json({ message: 'Lỗi khi lấy danh sách nhiệm vụ' });
     }
 });
 
-// API cập nhật trạng thái completed của một task
+// API: Thêm nhiệm vụ mới
+app.post('/api/todos', async (req, res) => {
+    const { title } = req.body;
+    const newTodo = new Todo({
+        title,
+        completed: false
+    });
+
+    try {
+        const savedTodo = await newTodo.save();
+        res.status(201).json(savedTodo);
+    } catch (error) {
+        res.status(500).json({ message: 'Lỗi khi thêm nhiệm vụ' });
+    }
+});
+
+// API: Cập nhật trạng thái hoàn thành của một nhiệm vụ
 app.patch('/api/todos/:id', async (req, res) => {
-    try {
-        const todo = await Todo.findById(req.params.id);
-        if (!todo) return res.status(404).json({ message: 'Không tìm thấy task' });
+    const { id } = req.params;
+    const { completed } = req.body;
 
-        todo.completed = req.body.completed;
-        const updatedTodo = await todo.save();
+    try {
+        const updatedTodo = await Todo.findByIdAndUpdate(
+            id,
+            { completed },
+            { new: true }
+        );
         res.json(updatedTodo);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    } catch (error) {
+        res.status(500).json({ message: 'Lỗi khi cập nhật trạng thái nhiệm vụ' });
     }
 });
 
-// API xóa một task
-app.delete('/api/todos/:id', async (req, res) => {
-    try {
-        const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
-        if (!deletedTodo) return res.status(404).json({ message: 'Không tìm thấy task' });
-
-        res.json({ message: 'Xóa task thành công' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+// Khởi động server
+app.listen(PORT, () => {
+    console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });

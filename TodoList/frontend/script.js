@@ -13,21 +13,33 @@ async function fetchTodos() {
 
 // Hiển thị danh sách todos lên giao diện
 function renderTodos(todos) {
-    const todoList = document.getElementById('todoList');
+    const todoList = document.getElementById('myUL');
     todoList.innerHTML = ''; // Xóa danh sách hiện tại
 
     todos.forEach(todo => {
         const li = document.createElement('li');
         li.textContent = todo.title;
-        li.className = todo.completed ? 'completed' : '';
+        li.className = todo.completed ? 'checked' : '';
         li.onclick = () => toggleTodoCompleted(todo._id, !todo.completed);
+
+        // Thêm nút "close" để xóa nhiệm vụ
+        const span = document.createElement('SPAN');
+        const txt = document.createTextNode("\u00D7");
+        span.className = 'close';
+        span.appendChild(txt);
+        span.onclick = (e) => {
+            e.stopPropagation(); // Ngăn chặn sự kiện click trên item
+            deleteTodo(todo._id);
+        };
+
+        li.appendChild(span);
         todoList.appendChild(li);
     });
 }
 
 // Thêm nhiệm vụ mới
 async function addTodo() {
-    const todoInput = document.getElementById('todoInput');
+    const todoInput = document.getElementById('myInput');
     const title = todoInput.value.trim();
 
     if (!title) {
@@ -64,6 +76,19 @@ async function toggleTodoCompleted(id, completed) {
         fetchTodos(); // Cập nhật lại danh sách todos
     } catch (error) {
         console.error('Lỗi khi cập nhật trạng thái nhiệm vụ:', error);
+    }
+}
+
+// Xóa một nhiệm vụ
+async function deleteTodo(id) {
+    try {
+        await fetch(`${apiUrl}/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        fetchTodos(); // Cập nhật lại danh sách todos sau khi xóa
+    } catch (error) {
+        console.error('Lỗi khi xóa nhiệm vụ:', error);
     }
 }
 
