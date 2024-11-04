@@ -8,18 +8,15 @@ body {
     padding: 20px; 
     z-index: -1;
 }
-
 h1 {
     text-align: center;
     color: white;
 }
-
 .input-form {
     display : flex;
     width : 60%;
     margin : 0 auto;
 }
-
 input[type="text"] {
     width: calc(100% - 60px);
     padding: 10px;
@@ -27,7 +24,6 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-
 button#addButton {
     padding: 10px;
     border: none;
@@ -38,11 +34,9 @@ button#addButton {
     transition: 0.3s;
     cursor: pointer;
 }
-
 button#addButton:hover {
     background-color: #369c4c;
 }
-
 #myUL {
     list-style: none;
     padding: 0;
@@ -52,7 +46,6 @@ button#addButton:hover {
     z-index: 10;
     font-size: 0.9rem;
 }
-
 #myUL li {
     position: relative;
     padding: 10px;
@@ -67,7 +60,6 @@ button#addButton:hover {
     -ms-user-select: none;
     user-select: none;
 }
-
 .close {
     position: absolute;
     right: 10px;
@@ -81,13 +73,11 @@ button#addButton:hover {
     width : 5%;
     margin : auto;
     text-align: center;
-}
-  
+} 
 .close:hover {
     background-color: #f44336;
     color: white;
 }
-
 #myUL li.completed {
     text-decoration: line-through;
     background-color: #e9ecef;
