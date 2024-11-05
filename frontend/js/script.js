@@ -49,23 +49,23 @@ document.getElementById("myInput").addEventListener("keypress", function(event) 
 console.log('DOM is ready');
 
 
-const taskForm = document.getElementById('taskForm'); // Lấy phần tử form
+// const taskForm = document.getElementById('taskForm'); // Lấy phần tử form
 
-    taskForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Ngăn chặn hành vi mặc định
+//     taskForm.addEventListener('submit', async (event) => {
+//         event.preventDefault(); // Ngăn chặn hành vi mặc định
 
-        const taskInput = document.getElementById('myInput').value; // Lấy giá trị input
+//         const taskInput = document.getElementById('myInput').value; // Lấy giá trị input
 
-        const response = await fetch('/api/tasks', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ task: taskInput }), // Gửi dữ liệu tới server
-        });
+//         const response = await fetch('/api/tasks', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ task: taskInput }), // Gửi dữ liệu tới server
+//         });
 
-        const data = await response.json();
-        alert(data.message); // Hiển thị thông báo
-        taskForm.reset(); // Làm sạch input
-    });
+//         const data = await response.json();
+//         alert(data.message); // Hiển thị thông báo
+//         taskForm.reset(); // Làm sạch input
+//     });
 });

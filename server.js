@@ -16,24 +16,18 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Tạo một schema cho công việc
 const taskSchema = new mongoose.Schema({
-  task: String,
-  createdAt: { type: Date, default: Date.now }
-});
+  task: {
+      type: String,
+      required: true,
+  },
+  completed: {
+      type: Boolean,
+      default: false,
+  },
+}, { timestamps: true });
+
 const Task = mongoose.model('Task', taskSchema);
-
-// const taskSchema = new mongoose.Schema({
-//   task: {
-//       type: String,
-//       required: true,
-//   },
-//   completed: {
-//       type: Boolean,
-//       default: false,
-//   },
-// }, { timestamps: true });
-
-// const Task = mongoose.model('Task', taskSchema);
-// module.exports = Task;
+module.exports = Task;
 
 // Sử dụng body-parser
 app.use(bodyParser.json());
