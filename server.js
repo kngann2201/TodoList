@@ -7,7 +7,7 @@ dotenv.config(); // Load các biến từ file .env
 app.use(express.json()); // Cho phép server nhận dữ liệu JSON
 
 // Kết nối tới MongoDB
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect("mongodb://localhost:27017/todolist", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -32,6 +32,7 @@ module.exports = Task;
 // Sử dụng body-parser
 app.use(bodyParser.json());
 app.use(express.static('frontend'));
+app.set("view engine", "ejs")
 
 // API để lưu công việc
 app.post('/api/tasks', async (req, res) => {
