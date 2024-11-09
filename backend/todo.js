@@ -22,7 +22,7 @@ router.post('/add', async (req, res) => {
 
       res.status(201).json({ message: 'Nhiệm vụ đã được thêm thành công!' });
    } catch (error) {
-      res.status(500).json({ message: 'Lỗi server!' });
+      res.status(500).json({ message: 'Lỗi thêm nhiệm vụ!' });
    }
 });
 // Lấy danh sách nhiệm vụ của người dùng
@@ -30,10 +30,16 @@ router.get('/list/:userId', async (req, res) => {
    try {
       const { userId } = req.params;
       const todos = await Todo.find({ userId }).sort({ createdAt: -1 });
-
+      // Kiểm tra nếu không có nhiệm vụ
+      if (tasks.length === 0) {
+         console.log('Không có nhiệm vụ nào được tìm thấy cho userId:', userId);
+         return res.json([]);
+     }
+      console.log('Các nhiệm vụ tìm thấy:', tasks);
+      res.json(tasks);
       res.status(200).json(todos);
    } catch (error) {
-      res.status(500).json({ message: 'Lỗi server!' });
+      res.status(500).json({ message: 'Lỗi khi lấy danh sách từ server!' });
    }
 });
 // Đánh dấu nhiệm vụ hoàn thành

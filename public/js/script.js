@@ -1,45 +1,45 @@
 document.addEventListener('DOMContentLoaded', function() {
-// Tạo và thêm nút "close" cho một mục danh sách
+// Tạo và thêm nút đóng cho một mục danh sách
 function addCloseButton(li) {
   var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7"); // Dấu "x" để xoá
+  var txt = document.createTextNode("\u00D7"); // u00D7 : Dấu x
   span.className = "close";
   span.appendChild(txt);
   li.appendChild(span);
   span.onclick = function() {
       var div = this.parentElement;
-      div.remove(); // Xóa mục danh sách khi nhấp vào nút "x"
+      div.remove(); 
   }
 }
-// Thêm nút "close" vào mỗi mục danh sách hiện có
+// Thêm nút xóa vào mỗi mục danh sách hiện có
 var myNodelist = document.getElementsByTagName("LI");
 for (let i = 0; i < myNodelist.length; i++) {
 addCloseButton(myNodelist[i]);
 }
-// Đánh dấu mục đã hoàn thành khi nhấp vào
+// Đánh dấu mục đã hoàn thành 
 var list = document.querySelector('ul');
 list.addEventListener('click', function(ev) {
 if (ev.target.tagName === 'LI') {
   ev.target.classList.toggle('completed');
 }
 }, false);
-// Tạo một mục danh sách mới khi nhấp vào nút "Add" hoặc "Enter" trên bàn phím
+// Tạo một mục danh sách mới (xử lí add và Enter)
 function newElement() {
 var li = document.createElement("li");
 var inputValue = document.getElementById("myInput").value;
 var t = document.createTextNode(inputValue);
 li.appendChild(t);
 if (inputValue === '') {
-  alert("You must write something!");
+  alert("Hãy viết nội dung trước khi thêm nhé!");
 } else {
   document.getElementById("myUL").appendChild(li);
-  addCloseButton(li); // Thêm nút "close" cho mục mới
+  addCloseButton(li); // Thêm nút đóng cho mục mới add
 }
 document.getElementById("myInput").value = "";
 }
-// Thêm sự kiện click cho nút "Add"
+// Xử lí "Add"
 document.getElementById("addButton").addEventListener("click", newElement);
-// Thêm sự kiện bấm "Enter" trên ô nhập liệu
+// Xử lí "Enter" từ bàn phím
 document.getElementById("myInput").addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
       newElement();
@@ -60,27 +60,27 @@ async function loadTasks() {
     console.log('Đang gửi yêu cầu API để tải nhiệm vụ...');  // Kiểm tra 
     try {
         const response = await fetch(`http://localhost:5000/api/todo/list/${userId}`);
-        console.log('Yêu cầu API đã được gửi', response);  // Kiểm tra
-        const tasks = await response.json();
-        console.log(task)   // Kiểm tra
-        const taskList = document.getElementById('myUL');
-        console.log(taskList)   // Kiểm tra
-        taskList.innerHTML = ''; // Xóa danh sách cũ
-        tasks.forEach(task => {
+        if (!response.ok) {
+          throw new Error('Không thể tải nhiệm vụ');
+        }
+        console.log('API đã được gửi', response);  // Kiểm tra
+        const todos = await response.json();
+        console.log(todos)   // Kiểm tra
+        const todoList = document.getElementById('myUL');
+        console.log(todoList)   // Kiểm tra
+        todoList.innerHTML = ''; // Xóa danh sách cũ
+        todos.forEach(task => {
             const li = document.createElement('li');
             li.textContent = task.content;
             if (task.isCompleted) {
-                li.style.textDecoration = 'line-through'; // Gạch bỏ nếu đã hoàn thành
+                li.style.textDecoration = 'line-through'; 
             }
-            taskList.appendChild(li);
+            todoList.appendChild(li);
         });
     } catch (error) {
-        alert('Lỗi khi tải nhiệm vụ!');
+        alert('Lỗi khi tải nhiệm vụ!!');
     }
 }
 // Tải nhiệm vụ khi trang được tải
 loadTasks();
-
-
-
 });
