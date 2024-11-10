@@ -29,15 +29,17 @@ router.post('/add', async (req, res) => {
 router.get('/list/:userId', async (req, res) => {
    try {
       const { userId } = req.params;
-      const todos = await Todo.find({ userId }).sort({ createdAt: -1 });
+      const tasks = await Todo.find({ userId }).sort({ createdAt: -1 });
       // Kiểm tra nếu không có nhiệm vụ
       if (tasks.length === 0) {
          console.log('Không có nhiệm vụ nào được tìm thấy cho userId:', userId);
          return res.json([]);
      }
+     else {
       console.log('Các nhiệm vụ tìm thấy:', tasks);
-      res.json(tasks);
-      res.status(200).json(todos);
+      // res.json(tasks);
+      res.status(200).json(tasks);
+      }
    } catch (error) {
       res.status(500).json({ message: 'Lỗi khi lấy danh sách từ server!' });
    }

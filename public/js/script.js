@@ -45,7 +45,6 @@ document.getElementById("myInput").addEventListener("keypress", function(event) 
       newElement();
   }
 });
-console.log('DOM is ready');
 
 // Lấy userId từ localStorage sau khi đăng nhập thành công
 const userId = localStorage.getItem('userId');
@@ -67,15 +66,15 @@ async function loadTasks() {
         const todos = await response.json();
         console.log(todos)   // Kiểm tra
         const todoList = document.getElementById('myUL');
-        console.log(todoList)   // Kiểm tra
-        todoList.innerHTML = ''; // Xóa danh sách cũ
+        todoList.innerHTML = ''; 
         todos.forEach(task => {
             const li = document.createElement('li');
-            li.textContent = task.content;
+            li.textContent = task.task;
             if (task.isCompleted) {
                 li.style.textDecoration = 'line-through'; 
             }
             todoList.appendChild(li);
+            addCloseButton(li);
         });
     } catch (error) {
         alert('Lỗi khi tải nhiệm vụ!!');
@@ -83,4 +82,6 @@ async function loadTasks() {
 }
 // Tải nhiệm vụ khi trang được tải
 loadTasks();
+
+console.log('DOM is ready');
 });
