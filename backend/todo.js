@@ -7,7 +7,8 @@ const router = express.Router();
 // Thêm nhiệm vụ mới
 router.post('/add', async (req, res) => {
    try {
-      const { userId, content } = req.body;    
+      const { userId, task } = req.body;  
+      console.log(req.body);  
       // Kiểm tra người dùng tồn tại
       const user = await User.findById(userId);
       if (!user) {
@@ -15,11 +16,10 @@ router.post('/add', async (req, res) => {
       }
       const newTodo = new Todo({
          userId,
-         content,
-         isCompleted: false
+         task,
+         completed: false
       });
       await newTodo.save();
-
       res.status(201).json({ message: 'Nhiệm vụ đã được thêm thành công!' });
    } catch (error) {
       res.status(500).json({ message: 'Lỗi thêm nhiệm vụ!' });
@@ -29,7 +29,8 @@ router.post('/add', async (req, res) => {
 router.get('/list/:userId', async (req, res) => {
    try {
       const { userId } = req.params;
-      const tasks = await Todo.find({ userId }).sort({ createdAt: -1 });
+      // const tasks = await Todo.find({ userId }).sort({ createdAt: -1 });
+      const tasks = await Todo.find({ userId }).select('task completed').sort({ createdAt: -1 });
       // Kiểm tra nếu không có nhiệm vụ
       if (tasks.length === 0) {
          console.log('Không có nhiệm vụ nào được tìm thấy cho userId:', userId);
@@ -37,7 +38,6 @@ router.get('/list/:userId', async (req, res) => {
      }
      else {
       console.log('Các nhiệm vụ tìm thấy:', tasks);
-      // res.json(tasks);
       res.status(200).json(tasks);
       }
    } catch (error) {

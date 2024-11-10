@@ -23,19 +23,56 @@ if (ev.target.tagName === 'LI') {
   ev.target.classList.toggle('completed');
 }
 }, false);
-// Tạo một mục danh sách mới (xử lí add và Enter)
+
+// Tạo một mục danh sách mới
+// function newElement() {
+// var li = document.createElement("li");
+// var inputValue = document.getElementById("myInput").value;
+// var t = document.createTextNode(inputValue);
+// li.appendChild(t);
+// if (inputValue === '') {
+//   alert("Hãy viết nội dung trước khi thêm nhé!");
+// } else {
+//   document.getElementById("myUL").appendChild(li);
+//   addCloseButton(li); // Thêm nút đóng cho mục mới add
+// }
+// document.getElementById("myInput").value = "";
+// }
+// function newElement() {
+// var li = document.createElement("li");
+// var inputValue = document.getElementById("myInput").value;
+// var t = document.createTextNode(inputValue);
+
+
+// Tạo phần tử danh sách mới
+const input = document.getElementById('myInput');
+const userId = localStorage.getItem('userId');
+console.log('id:',userId);
 function newElement() {
-var li = document.createElement("li");
-var inputValue = document.getElementById("myInput").value;
-var t = document.createTextNode(inputValue);
-li.appendChild(t);
-if (inputValue === '') {
-  alert("Hãy viết nội dung trước khi thêm nhé!");
-} else {
+  const inputValue = input.value;
+  console.log('inputValue:', inputValue);
+  if (!inputValue) {
+    alert("Hãy viết nội dung trước khi thêm nhé!");
+    return;
+  }
+  const li = document.createElement("li");
+  li.textContent = inputValue;
   document.getElementById("myUL").appendChild(li);
-  addCloseButton(li); // Thêm nút đóng cho mục mới add
-}
-document.getElementById("myInput").value = "";
+  addCloseButton(li);
+  // Gửi nhiệm vụ mới lên server để lưu vào MongoDB
+  fetch('http://localhost:5000/api/todo/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({ userId: userId, task: inputValue }) 
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log(data.message); 
+  })
+  .catch(error => {
+      console.error('Lỗi khi thêm nhiệm vụ:', error);
+  });
+  input.value = "";
 }
 // Xử lí "Add"
 document.getElementById("addButton").addEventListener("click", newElement);
@@ -46,9 +83,6 @@ document.getElementById("myInput").addEventListener("keypress", function(event) 
   }
 });
 
-// Lấy userId từ localStorage sau khi đăng nhập thành công
-const userId = localStorage.getItem('userId');
-console.log(userId) // Kiểm tra 
 // Lấy danh sách nhiệm vụ từ server
 async function loadTasks() {
     if (!userId) {
