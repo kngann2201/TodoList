@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Kết nối MongoDB
-mongoose.connect('mongodb://localhost:27017/demo', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/todolist', { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => console.log("Kết nối MongoDB thành công!"))
    .catch(err => console.error("Không thể kết nối MongoDB:", err));
-
+   
 // Sử dụng CORS (Cross-Origin Resource Sharing)
 app.use(cors())
 
