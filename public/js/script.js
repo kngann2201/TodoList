@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 //Welcome
-const name = localStorage.getItem('username');
+const name = localStorage.getItem('name');
 const userId = localStorage.getItem('userId');
 const taskId = localStorage.getItem('taskId');
+console.log(name); //kiểm tra
 document.getElementById("loginUser").innerHTML = `Chào mừng <span class="username">${name}</span>, hãy lập To-do list ngày hôm nay nhé!`;
 
 // Lấy danh sách nhiệm vụ từ server
@@ -87,8 +88,11 @@ function addCloseButton(li) {
   span.className = "close";
   span.appendChild(txt);
   li.appendChild(span);
+  // const targetId = span.parentElement.dataset.taskId;
+  // console.log(taskId);
   //Xóa trên html  
   span.onclick = function() {
+    // event.preventDefault();
     var delspan = this.parentElement;
     const taskId = span.parentElement.dataset.taskId;
     console.log(taskId);
@@ -136,6 +140,8 @@ console.log(status); //kiểm tra
     console.error('Lỗi khi cập nhật trạng thái nhiệm vụ:', error);
   });
 }, false);
+
+
 
 console.log('DOM is ready');
 });
