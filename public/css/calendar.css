@@ -26,10 +26,15 @@
   -ms-user-select: none;
   user-select: none;
 }
-#myULTodo li.completed, #myULTodo li.completed, #myULEvent li.completed {
+#myULTodo li.completed, #myUL li.completed, #myULEvent li.completed {
   text-decoration: line-through;
   background-color: #e9ecef;
   color: black;
+}
+#myULTodo, #myULEvent {
+  padding-top : 2rem;
+  width : 100%; 
+  margin : 3.2rem;
 }
 /* Change end */
 
@@ -49,6 +54,98 @@
   min-height: 100vh;
   background: #FFA07A;
 }
+.wrapper{
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  margin-top:  1rem;
+  margin-bottom: auto;
+}
+.wrapper header{
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+header .icons{
+  display: flex;
+}
+header .icons span{
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #878787;
+  text-align: center;
+  line-height: 38px;
+  font-size: 1.9rem;
+  user-select: none;
+  border-radius: 50%;
+}
+.icons span:last-child{
+  margin-right: -10px;
+}
+header .icons span:hover{
+  background: #f2f2f2;
+}
+header .current-date{
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+.calendar{
+  padding: 20px;
+}
+.calendar ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+.calendar .days{
+  margin-bottom: 20px;
+}
+.calendar li{
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+}
+.calendar .weeks li{
+  font-weight: 500;
+  cursor: default;
+}
+.calendar .days li{
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+.days li.inactive{
+  color: #aaa;
+}
+.days li.active{
+  color: #fff;
+}
+.days li::before{
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.days li.active::before{
+  background: #f08459;
+}
+.days li:not(.active):hover::before{
+  background: #97979741;
+}
+.selectedDay::before {
+  background: #f596708e !important;
+}
 /* Phần hiện nhiệm vụ phía dưới */
 .wrapper:last-child{
   margin-bottom: 1rem;
@@ -56,21 +153,39 @@
 .under{
   padding: 10px;
 }
-h1 {
-  text-align: center;
-  color: #cd7c5d;
-  display: block;
-  font-size: 1em;
-  margin : 3rem auto 1rem;
-  padding : 1rem;
+.input-form {
+  display : flex;
+  width : 60%;
+  margin : 0 auto;
 }
-select {
+input[type="text"] {
+  width: calc(100% - 60px);
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button#addButton {
+  padding: 10px;
+  border: none;
+  background-color: #ef855bb7;
+  color: white;
+  border-radius: 4px;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+button#addButton:hover {
+  background-color: #f08459;
+}
+/* select {
   padding : 1rem;
   width : 50%;
   margin : 0 25%;
   box-sizing: border-box;
   border : 1px solid rgba(128, 128, 128, 0.685);
-}
+} */
 .close {
   position: absolute;
   right: 10px;

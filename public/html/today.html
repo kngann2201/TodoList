@@ -1,37 +1,47 @@
 <!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/index.css">
-  <link rel="stylesheet" href="../css/today.css">
-  <script src="../js/script.js" defer></script>
-  <script src="../js/chart.js" defer></script>
-  <!-- <script src="../js/chart.js" defer></script> -->
-  <script src="https://kit.fontawesome.com/45371830ed.js" crossorigin="anonymous"></script>
-  <link rel="shortcut icon" href="../img/download__8_-removebg.png">
-  <title>To-Do List</title>
-</head>
-<body>
-  <!-- Phần bên trái -->
-  <section class="left">
-    <h1>To-Do List</h1>
-    <div id="taskForm" class="input-form">
-      <input type="text" id="myInput" placeholder="Add a new task">
-      <select id="myItem">
-        <!-- <option id ='all'>Tất cả</option> -->
-        <option id = 'study'>Học tập</option>
-        <option id = 'goout'>Đi chơi</option>
-        <option id = 'hasTodo'>Việc cần làm</option>
-      </select>
-      <input type = "date" id = "date">
-      <button id="addButton">Add</button>
-    </div>
-    <ul id="myUL" class = 'myTodo'>
-      <li>Make a to-do list today</li>
-    </ul>
-  </section>
-  <!-- Phần menu bên phải -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../img/download__8_-removebg.png">
+    <title>Mèo Meo List - Lịch</title>
+    <!-- <link rel="stylesheet" href="../css/calendar.css"> -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/today.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/45371830ed.js" crossorigin="anonymous"></script>
+    <!-- Google Font Link for Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <!-- <script src="../js/calendar.js" defer></script> -->
+    <script src="../js/today.js" defer></script>
+  </head>
+  <body>
+    <!-- Phần nội dung bên trái -->
+    <section class="left">
+      <!-- Phần hiện nội dung bên dưới -->
+      <div class="wrapper">
+        <div class="under">
+          <h1>CÔNG VIỆC HÔM NAY</h1>
+          <select id="myItem">
+            <option>Tất cả</option>
+            <optgroup label="Danh sách công việc">
+              <option id = 'study'>Học tập</option>
+              <option id = 'goout'>Đi chơi</option>
+              <option id = 'hasTodo'>Việc cần làm</option>
+            </optgroup>
+            <optgroup label="Danh sách sự kiện">
+              <option id = 'birthday'>Sinh nhật</option>
+              <option id = 'schedule'>Lịch trình</option>
+              <option id = 'holiday'>Lễ</option>
+            </optgroup>
+          </select>
+          <ul id="myULTodo">
+          </ul>
+          <ul id="myULEvent" style = "margin-top: 2rem;">
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- Phần menu bên phải -->
   <section class="right">
     <section id = "welcome">
       <div class="avatarName">
@@ -111,5 +121,5 @@
       </div>
     </section>
   </section>
-</body>
+  </body>
 </html>

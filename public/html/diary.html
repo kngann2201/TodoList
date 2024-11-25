@@ -2,34 +2,47 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/index.css">
-  <link rel="stylesheet" href="../css/today.css">
-  <script src="../js/script.js" defer></script>
-  <script src="../js/chart.js" defer></script>
-  <!-- <script src="../js/chart.js" defer></script> -->
+  <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1.0">
+  <link rel="stylesheet" href="../css/diary.css">
+  <script src="../js/diaryScript.js"></script>
+  <script src="../js/celendarVsDiary.js" defer></script>
   <script src="https://kit.fontawesome.com/45371830ed.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" href="../img/download__8_-removebg.png">
-  <title>To-Do List</title>
+  <title>Mèo Meo List - Nhật Ký</title>
+  <!-- Google Font Link for Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
 <body>
   <!-- Phần bên trái -->
   <section class="left">
-    <h1>To-Do List</h1>
-    <div id="taskForm" class="input-form">
-      <input type="text" id="myInput" placeholder="Add a new task">
-      <select id="myItem">
-        <!-- <option id ='all'>Tất cả</option> -->
-        <option id = 'study'>Học tập</option>
-        <option id = 'goout'>Đi chơi</option>
-        <option id = 'hasTodo'>Việc cần làm</option>
-      </select>
-      <input type = "date" id = "date">
-      <button id="addButton">Add</button>
+    <div class="container">
+        <!-- Phần ghi nhật ký -->
+        <div id="taskForm" class="input-form">
+            <form action="#" id="usrform"> 
+              <input type="text" id="myInput" placeholder=" Tiêu đề ">
+              <input type = "date" id = "date">
+              <button id="addButton"> Lưu</button>
+            </form>  
+            <br>  
+            <textarea id="myInputDiary" rows="25" cols="130" name="comment" form="usrform" placeholder=" Lưu giữ ký ức, cùng Mèo Meo List sống lại những ngày tháng đã qua."></textarea>
+        </div>
+         <!-- Phần ngày -->
+        <div class="wrapper">
+            <header>
+              <p class="current-date"></p>
+              <div class="icons">
+                <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                <span id="next" class="material-symbols-rounded">chevron_right</span>
+              </div>
+            </header>
+            <div class="calendar">
+              <ul class="days"></ul>
+            </div>
+        </div>
+        <!-- Phần lưu trữ nhật ký -->
+        <ul id="myUL">
+        </ul>
     </div>
-    <ul id="myUL" class = 'myTodo'>
-      <li>Make a to-do list today</li>
-    </ul>
   </section>
   <!-- Phần menu bên phải -->
   <section class="right">

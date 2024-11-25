@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 const router = express.Router();
 
@@ -10,13 +9,13 @@ router.post('/register', async (req, res) => {
       // Kiểm tra nếu username đã tồn tại
       const existingUser = await User.findOne({ username });
       if (existingUser) {
-         return res.json({ message: 'Tên người dùng đã tồn tại!' });
+         return res.status(400).json({ message: 'Tên người dùng đã tồn tại!' });
       }
       const newUser = new User({ username, password, name});
       await newUser.save();
-      res.json({ message: 'Đăng ký thành công!', name: newUser.name });
+      res.status(201).json({ message: 'Đăng ký thành công!', name: newUser.name });
    } catch (error) {
-      res.json({ message: 'Lỗi server!' });
+      resstatus(500).json({ message: 'Lỗi server!' });
    }
 });
 
@@ -30,11 +29,10 @@ router.post('/login', async (req, res) => {
       if (!user) {
          return res.status(400).json({ message: 'Không tồn tại người dùng này!' });
       }
-      // Kiểm tra mật khẩu
       if (password !== user.password) {
-         return res.json({ message: 'Sai mật khẩu!' });
+         return res.status(400).json({ message: 'Sai mật khẩu!' });
       }
-      res.json({ message: 'Đăng nhập thành công!', userId: user._id });
+      res.status(200).json({ message: 'Đăng nhập thành công!', userId: user._id, name: user.name});
    } catch (error) {
       res.status(500).json({ message: 'Lỗi server!' });
    }
