@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         todos.forEach(task => {
             const dateType = new Date(task.createdAt);
             const li = document.createElement('li');
-            var y = document.createElement("SPAN");
+                var y = document.createElement("SPAN");
                 y.className = "taskToday";
                 y.textContent = task.task;
                 li.appendChild(y);
@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputValue = input.value;
     const inputDateValue = inputDate.value;
     const dateType = new Date(inputDateValue);
+    const today = new Date();
     console.log('inputValue:', inputValue);
     if (!inputValue) {
       alert("Hãy viết nội dung trước khi thêm nhé!");
@@ -78,14 +79,23 @@ document.addEventListener('DOMContentLoaded', function() {
       alert("Chọn ngày đã nhé!");
       return;
     }
+    //---------------------------------------------
+    // if (dateType < today) {
+    //   alert("Hãy để quá khứ đã qua trôi đi, làm gì nữa!!! Hãy chọn ngày khác nhé!");
+    //   return;
+    // }
+    //--------------------------------------------
     const li = document.createElement("li");
-    // li.textContent = inputValue + ' ' + getDay + '/' + getMonth;
-    li.textContent = inputValue;
+    // li.textContent = inputValue;
     const list = document.getElementById("myUL");
     const selectElement = document.getElementById("myItem");
     const choice = selectElement.options[selectElement.selectedIndex].text;
     const choices = selectElement.options[selectElement.selectedIndex].id;
     console.log(choice);
+    var z = document.createElement("SPAN");
+      z.className = "taskToday";
+      z.textContent = inputValue;
+      li.appendChild(z);
     var x = document.createElement("SPAN");
       x.className = "dateToday";
       x.textContent = dateType.getDate() + '/' + (dateType.getMonth() + 1);

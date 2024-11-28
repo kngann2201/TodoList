@@ -4,6 +4,7 @@ body {
     padding: 0;
     z-index: -1;
     display: flex;
+    background-color:  #f89d73;
 }
 html, body {
     width: 100%;
@@ -13,12 +14,31 @@ a{
     text-decoration: none;
     color: #fffbfa
 }
+.taskToday{
+    width: 30%;
+    padding: 3px;
+  }
+.dateToday{
+      padding: 3px;
+      background-color: #ff8488a8;
+      border-radius: 5px;
+      width: 3rem;
+      text-align: center;
+  }
+.filterToday{
+      padding: 3px;
+      background-color: #ffa07a86;
+      border-radius: 5px;
+      width: 7rem;
+      margin-left: 8rem;
+      text-align: center;
+  }
 /* Phần bên trái*/
 section.left{
     margin-left: 0;
     margin-right: auto;
     width: 80%;
-    height: 100%;
+    height: min-content;
     /* background-color:  #fdfbf7; */
     color:  #cd7c5d;
     font-size: 60px;
@@ -80,6 +100,7 @@ button#addButton {
     border : 1px solid gray;
     color : black;
     font-weight: 100;
+    display: flex;
 
     -webkit-user-select: none;
     -moz-user-select: none;

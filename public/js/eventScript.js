@@ -194,12 +194,16 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       const li = document.createElement("li")            
-      li.textContent = inputValue;
+      // li.textContent = inputValue;
       const list = document.getElementById("myUL");
       const selectElement = document.getElementById("myItem");
       const choice = selectElement.options[selectElement.selectedIndex].text;
       const choices = selectElement.options[selectElement.selectedIndex].id;
       console.log(choice);
+      var y = document.createElement("SPAN");
+      y.className = "taskToday";
+      y.textContent = inputValue;
+      li.appendChild(y);
       var x = document.createElement("SPAN");
       x.className = "filterToday";
       x.textContent = choice;
