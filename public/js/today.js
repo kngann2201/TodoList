@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           todoList.innerHTML = ''; 
           todos.forEach(task => {
             const dateType = new Date(task.createdAt);
-            if (dateType.getDate() == today.getDate())
+            if (dateType.getDate() === today.getDate() && dateType.getMonth() === today.getMonth() && dateType.getFullYear() === today.getFullYear())
             {
               if (!selected || task.filter === selected) {
               makeElement(task, dateType, todoList, addCloseButtonTodo);

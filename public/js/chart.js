@@ -1,5 +1,3 @@
-const { removeListener } = require("../../backend/models/Label");
-
 document.addEventListener('DOMContentLoaded', function () {
     //Welcome
             const name = localStorage.getItem('name');
@@ -14,11 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!response.ok) {
               throw new Error('Không thể tải nhiệm vụ');
             }
-            // console.log('API đã được gửi', response);  // Kiểm tra
             const todos = await response.json();
-            // const list = document.querySelectorAll('#myItem option');
             const xValues = ['Học tập', 'Đi chơi', 'Việc cần làm'];
-            // console.log(list);
             var ht = 0, dc = 0, td = 0;
             todos.forEach(task => {
                 if (task.filter === "Học tập") ht++;
@@ -29,7 +24,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const barColors = [
             "#F8DAE9",
             "#B9D6F3",
-            "#F1E8D9"
+            "#F1E8D9",
+            "#B5EAD7",
+            "#F2D5DA",
+            "#BFBFE3", 
+            "#C4E2E4", 
+            "#F3D2C9", 
+            "#F8E3D0"     
             ];
             new Chart("todoChart", {
             type: "pie",
@@ -70,9 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Tính toán phần trăm hoàn thành
                 if (task.completed === true) ht++;
                 t++;  
-                const dateType = new Date(task.createAt);
-                if (dateType.getDate() === today.getDate())
-                {
+                const dateType = new Date(task.createdAt);
+                console.log(dateType);
+                if (dateType.getDate() === today.getDate() && dateType.getMonth() === today.getMonth() && dateType.getFullYear() === today.getFullYear()) {
                     if (task.completed === true) comp++;
                     total++;
                 }
@@ -87,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const progressText = document.getElementById('progressText');
             if (!progressPercentage || progressPercentage === 0)
             {
-                progressText.innerHTML = `Tiến độ hoàn thành các nhiệm vụ: 0%`;
+                progressText.innerHTML = `Tiến độ hoàn thành các nhiệm vụ: 0% (${completedCount}/${totalTasks})`;
             }
             else {
-                progressText.innerHTML = `Tiến độ hoàn thành các nhiệm vụ: ${progressPercentage}%`;
+                progressText.innerHTML = `Tiến độ hoàn thành các nhiệm vụ: ${progressPercentage}% (${completedCount}/${totalTasks})`;
             }
             const totalTasksToday = total;
             const completedCountToday = comp;
@@ -102,42 +103,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const progressTextToday = document.getElementById('progressTextToday');
             if (!progressPercentageToday || progressPercentageToday === 0)
             {
-                progressTextToday.innerHTML = `Tiến độ hoàn thành các nhiệm vụ hôm nay: 0%`;
+                progressTextToday.innerHTML = `Tiến độ hoàn thành các nhiệm vụ hôm nay: 0% (${completedCountToday}/${totalTasksToday})`;
             }
             else
             {
-                progressTextToday.innerHTML = `Tiến độ hoàn thành các nhiệm vụ: ${progressPercentageToday}%`;
-            }
-            if (progressPercentage === 100 || progressPercentageToday === 100)
-            {
-                createConfetti();
+                progressTextToday.innerHTML = `Tiến độ hoàn thành các nhiệm vụ: ${progressPercentageToday}% (${completedCountToday}/${totalTasksToday})`;
             }
         } catch (error) {
             alert('Lỗi khi tải nhiệm vụ!!');
         }       
     }
-    updateProgress();
-    function createConfetti() {
-        const confetti = document.getElementById('confetti');
-        for (let i = 0; i < 100; i++) {
-            const confettiPiece = document.createElement('div');
-            confettiPiece.classList.add('confetti-piece');
-            confettiPiece.style.left = Math.random() * 100 + 'vw';
-            confettiPiece.style.backgroundColor = getRandomColor();
-            confetti.appendChild(confettiPiece);
-            setTimeout(() => {
-                confettiPiece.remove();
-            }, 2000);
-        }
-    }
-    
-    function getRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-    
+    updateProgress();   
 });
