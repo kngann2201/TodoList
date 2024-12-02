@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="../img/download__8_-removebg.png">
-    <title>Mèo Meo List - Lịch</title>
+    <title>Mèo Meo List - Thống kê</title>
     <link rel="stylesheet" href="../css/chart.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/45371830ed.js" crossorigin="anonymous"></script>
@@ -22,11 +22,16 @@
         <div class="chart">
           <canvas id="todoChart"></canvas>
         </div>
-        <div class="progressText"></div>
+        <div class="progressText" id = "progressText"></div>
         <div class="progress">
           <div class="progressBar" id="progressBar"></div> 
         </div>
+        <div class="progressText" id = "progressTextToday"></div>
+        <div class="progress">
+          <div class="progressBar" id="progressBarToday"></div> 
+        </div>
       </div>
+      <div id="confetti"></div>
     </section>
     <!-- Phần menu bên phải -->
   <section class="right">

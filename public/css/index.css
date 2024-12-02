@@ -45,6 +45,7 @@ section.left{
     font-weight: bold;
     background-image: url(../img/Download\ premium\ psd\ _\ image\ of\ Artsy\ psd\ shimmering\ golden\ stars\ pattern\ banner\ by\ Aum\ about\ backgrounds\,\ stars\,\ design\ background\,\ pattern\,\ and\ glitter\ 2681052\(1\).jpeg);
     background-size: cover;
+    height : 100%;
 }
 h1 {
     text-align: center;

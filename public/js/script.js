@@ -79,14 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
       alert("Chọn ngày đã nhé!");
       return;
     }
-    //---------------------------------------------
-    // if (dateType < today) {
-    //   alert("Hãy để quá khứ đã qua trôi đi, làm gì nữa!!! Hãy chọn ngày khác nhé!");
-    //   return;
-    // }
-    //--------------------------------------------
     const li = document.createElement("li");
-    // li.textContent = inputValue;
     const list = document.getElementById("myUL");
     const selectElement = document.getElementById("myItem");
     const choice = selectElement.options[selectElement.selectedIndex].text;

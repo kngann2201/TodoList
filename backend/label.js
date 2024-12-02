@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/list/:userId', async (req, res) => {
     try {
        const { userId } = req.params;
-       const tasks = await Label.find({ userId }).select('label');
+       const tasks = await Label.find({ userId }).select('label group');
        // Kiểm tra nếu không có label
        if (tasks.length === 0) {
           console.log('Không có nhãn nào được tìm thấy cho userId:', userId);
