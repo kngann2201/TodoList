@@ -13,25 +13,30 @@ document.addEventListener('DOMContentLoaded', function () {
               throw new Error('Không thể tải nhiệm vụ');
             }
             const todos = await response.json();
-            const xValues = ['Học tập', 'Đi chơi', 'Việc cần làm'];
-            var ht = 0, dc = 0, td = 0;
+            //Sử dụng Map cho hai mảng xValues và yValues
+            const filterCounts = new Map();
             todos.forEach(task => {
-                if (task.filter === "Học tập") ht++;
-                else if (task.filter === "Đi chơi") dc++;
-                else td++;  
-            }); 
-            const yValues = [ht, dc, td];
+                const filter = task.filter;
+                filterCounts.set(filter, (filterCounts.get(filter) || 0) + 1);
+            });
+            const xValues = [];
+            const yValues = [];
+            filterCounts.forEach((count, filter) => {
+                xValues.push(filter);
+                yValues.push(count);
+            });
             const barColors = [
-            "#F8DAE9",
-            "#B9D6F3",
-            "#F1E8D9",
-            "#B5EAD7",
             "#F2D5DA",
             "#BFBFE3", 
             "#C4E2E4", 
             "#F3D2C9", 
+            "#F8DAE9",
+            "#B9D6F3",
+            "#F1E8D9",
+            "#B5EAD7",
             "#F8E3D0"     
             ];
+            Chart.defaults.font.size = 14;
             new Chart("todoChart", {
             type: "pie",
             data: {
@@ -43,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             options: {
                 responsive: true,
-                hoverOffset: 20
+                hoverOffset: 15
             }
     })
         } catch (error) {
@@ -72,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (task.completed === true) ht++;
                 t++;  
                 const dateType = new Date(task.createdAt);
-                console.log(dateType);
                 if (dateType.getDate() === today.getDate() && dateType.getMonth() === today.getMonth() && dateType.getFullYear() === today.getFullYear()) {
                     if (task.completed === true) comp++;
                     total++;
@@ -80,8 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             const totalTasks = t;
             const completedCount = ht;
-            console.log(t);
-            console.log(ht)
             const progressPercentage = (completedCount / totalTasks) * 100;
             const progressBar = document.getElementById('progressBar');
             progressBar.style.width = progressPercentage + '%';
@@ -95,8 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             const totalTasksToday = total;
             const completedCountToday = comp;
-            console.log(total);
-            console.log(comp)
             const progressPercentageToday = (completedCountToday/ totalTasksToday) * 100;
             const progressBarToday = document.getElementById('progressBarToday');
             progressBarToday.style.width = progressPercentageToday + '%';

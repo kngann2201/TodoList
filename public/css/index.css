@@ -63,8 +63,9 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-select {
+select, #myItem {
     margin-right: 1rem;
+    width : 25%;
 }
 button#addButton {
     padding: 10px;

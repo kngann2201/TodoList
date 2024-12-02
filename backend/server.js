@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Kết nối MongoDB
-mongoose.connect('mongodb://localhost:27017/demo', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/todolist', { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => console.log("Kết nối MongoDB thành công!"))
    .catch(err => console.error("Không thể kết nối MongoDB:", err));
 
@@ -97,9 +97,9 @@ app.use('/api/diary', diaryRoutes);
 const historyRoutes = require('./history');
 app.use('/api/history', historyRoutes);
 
-//Kết nối history.js với server.js để sử dụng các routes tương tác nhiệm vụ
-const labelRoutes = require('./label');
-app.use('/api/label', labelRoutes);
+// //Kết nối history.js với server.js để sử dụng các routes tương tác nhiệm vụ
+// const labelRoutes = require('./label');
+// app.use('/api/label', labelRoutes);
 
 // Thiết lập server lắng nghe tại cổng 5000
 const PORT = 5000;

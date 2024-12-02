@@ -43,15 +43,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (task.completed === true) {
               li.classList.add("completed"); 
             }
-            const selectElement = document.getElementById("myItem");
-            let classF = null;
-            for (let option of selectElement.options) {
-              if (option.value === task.filter) {
-                  classF = option.id; 
-                  break; 
-              }
-            }
-            li.classList.add(classF);
+            // const selectElement = document.getElementById("myItem");
+            // let classF = null;
+            // for (let option of selectElement.options) {
+            //   if (option.value === task.filter) {
+            //       classF = option.id; 
+            //       break; 
+            //   }
+            // }
+            // li.classList.add(classF);
             todoList.appendChild(li);
             addCloseButton(li);
         });
@@ -69,8 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputValue = input.value;
     const inputDateValue = inputDate.value;
     const dateType = new Date(inputDateValue);
-    const today = new Date();
-    console.log('inputValue:', inputValue);
+    ///////////////
+    const label = document.getElementById("myItem").value;
+    console.log(label);
+    //////////////////////////
     if (!inputValue) {
       alert("Hãy viết nội dung trước khi thêm nhé!");
       return;
@@ -81,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     const li = document.createElement("li");
     const list = document.getElementById("myUL");
-    const selectElement = document.getElementById("myItem");
-    const choice = selectElement.options[selectElement.selectedIndex].text;
-    const choices = selectElement.options[selectElement.selectedIndex].id;
-    console.log(choice);
+    // const selectElement = document.getElementById("myItem");
+    // const choice = selectElement.options[selectElement.selectedIndex].text;
+    // const choices = selectElement.options[selectElement.selectedIndex].id;
+    // console.log(choice);
     var z = document.createElement("SPAN");
       z.className = "taskToday";
       z.textContent = inputValue;
@@ -95,14 +97,15 @@ document.addEventListener('DOMContentLoaded', function() {
       li.appendChild(x);
     var y = document.createElement("SPAN");
       y.className = "filterToday";
-      y.textContent = choice;
+      // y.textContent = choice;
+      y.textContent = label;
       li.appendChild(y);
-    li.classList.add(choices);
+    // li.classList.add(choices);
   // Gửi nhiệm vụ mới lên server để lưu vào MongoDB
     fetch('http://localhost:5000/api/todo/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({ userId: userId, task: inputValue, completed: false, filter: choice, createdAt: dateType }) 
+      body: JSON.stringify({ userId: userId, task: inputValue, completed: false, filter: label, createdAt: dateType }) 
     })
     .then(response => response.json())
     .then(data => {
@@ -110,6 +113,18 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(data);
         console.log('Thêm nhiệm vụ thành công!');
         li.dataset.taskId = data.taskId;
+      // --------------------------------------------
+      // fetch('http://localhost:5000/api/label/add', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json'},
+      //   body: JSON.stringify({ userId: userId, label: label })
+      // })
+      // .then(response => response.json())
+      // .then(
+      //     console.log('Thêm nhãn thành công!'))
+      // .catch(error => {
+      //     console.error('Lỗi khi thêm nhãn', error);
+      // });
       // --------------------------------------------
       const success = "Thêm nhiệm vụ thành công!";
       fetch('http://localhost:5000/api/history/add', {
