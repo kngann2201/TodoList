@@ -114,17 +114,17 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Thêm nhiệm vụ thành công!');
         li.dataset.taskId = data.taskId;
       // --------------------------------------------
-      // fetch('http://localhost:5000/api/label/add', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json'},
-      //   body: JSON.stringify({ userId: userId, label: label })
-      // })
-      // .then(response => response.json())
-      // .then(
-      //     console.log('Thêm nhãn thành công!'))
-      // .catch(error => {
-      //     console.error('Lỗi khi thêm nhãn', error);
-      // });
+      fetch('http://localhost:5000/api/label/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ userId: userId, label: label })
+      })
+      .then(response => response.json())
+      .then(
+          console.log('Thêm nhãn thành công!'))
+      .catch(error => {
+          console.error('Lỗi khi thêm nhãn', error);
+      });
       // --------------------------------------------
       const success = "Thêm nhiệm vụ thành công!";
       fetch('http://localhost:5000/api/history/add', {

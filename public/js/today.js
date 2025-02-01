@@ -33,7 +33,24 @@ document.addEventListener('DOMContentLoaded', async function() {
     const taskId = localStorage.getItem('taskId');
     console.log(name); //kiểm tra
     document.getElementById("name").innerHTML = `${name}`;
-
+    //Tạo thẻ con trong select
+    const todoGroup = document.getElementById('meomeo');
+    try {
+      const response = await fetch(`http://localhost:5000/api/label/list/${userId}`);
+      if (!response.ok) {
+        throw new Error('Không thể tải nhãn');
+      }
+      const labels = await response.json();
+      const today = new Date();
+      todoGroup.innerHTML = ''; 
+      labels.forEach(task => {
+        const opt = document.createElement('option');
+        opt.innerText = task.label;
+        todoGroup.append(opt);
+      });
+  } catch (error) {
+      alert("Lỗi hệ thống!")
+}
     //Hàm tạo element 
     const makeElement = function(task, dateType, list, addCloseButton) {
       const li = document.createElement('li');
@@ -251,7 +268,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
   }, false);
 
-  //Gắn sự kiện cho thẻ select
+  // Gắn sự kiện cho thẻ select
   const selectElement = document.getElementById('myItem');
   selectElement.addEventListener('change', async function () {
     const selected = selectElement.value; 

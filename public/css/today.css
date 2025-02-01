@@ -293,7 +293,7 @@ h2{
     color: #ad3e13;
     display: block;
     font-size: 1em;
-    margin : 2rem auto 1rem;
+    margin : 2rem auto 0rem;
   }
   select {
     padding : 1rem;
@@ -322,6 +322,7 @@ h2{
     color: #f44336;
     font-size: 1.5rem;
     top: 20%;
+    transform: translateY(-30%);
   }
   select {
     margin-right: 1rem;
@@ -349,7 +350,13 @@ h2{
     margin: 10px;
     border-radius: 5px;
     height: 400px;
-    overflow-y: scroll;
+    overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  }
+  .box ul::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none; 
   }
   .wrapper:first-child{
     width: 30%;
